@@ -3,12 +3,11 @@ import { useParams } from "react-router-dom";
 import { db } from "../../Firebase";
 import { doc, getDoc, increment, updateDoc } from "firebase/firestore";
 import NotFound from "./NotFound";
-import { Box, CircularProgress, Typography } from "@mui/material";
 
 const LinkRedirect = () => {
   const { shortLink } = useParams();
-  const [Loader, setLoader] = useState(true);
   const [error, seterror] = useState(false);
+
   useEffect(() => {
     const fetchLinksDoc = async () => {
       try {
@@ -27,28 +26,18 @@ const LinkRedirect = () => {
           // Redirect to the longURL
           window.location.href = longURL;
         } else {
-          console.log(linkDoc.data());
-          setLoader(false);
+          console.log("No such document!");
           seterror(true);
         }
       } catch (error) {
-        console.log(error);
-        setLoader(false);
-        seterror(true);
+        console.error("Error fetching document: ", error);
       }
     };
 
     fetchLinksDoc();
   }, []);
 
-  if (Loader)
-    return (
-      <Box mt={10} textAlign="center">
-        <CircularProgress />
-        <Typography>Redirecting to the link</Typography>
-      </Box>
-    );
-  else if (error)
+  if (error)
     return (
       <>
         <NotFound />
