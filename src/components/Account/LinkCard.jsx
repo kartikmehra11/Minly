@@ -1,4 +1,11 @@
-import { Typography, Button, Box, Snackbar, Slide } from "@mui/material";
+import {
+  Typography,
+  Button,
+  Box,
+  Snackbar,
+  Slide,
+  Hidden,
+} from "@mui/material";
 import { BarChart } from "@mui/icons-material";
 import { format } from "date-fns";
 import { memo } from "react";
@@ -18,17 +25,20 @@ const LinkCard = ({
   return (
     <>
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Box my={2}>
+        {/* Left side */}
+        <Box my={2} width="50%">
           <Typography color="darkgrey" variant="overline">
             Created at {format(createdAt, "do MMM, HH:mm")}
           </Typography>
           <Typography fontSize={25}>{name}</Typography>
-          <Typography>{longURL}</Typography>
+          <Typography sx={{ overflow: "hidden", textOverflow: "ellipsis" }}>
+            {longURL}
+          </Typography>
           <Box display="flex" alignItems="center" marginTop={2}>
             <Box marginRight={2}>
               <Typography color="secondary">{shortLink}</Typography>
             </Box>
-            <Box mr={2}>
+            <Box p={2}>
               <Button
                 size="small"
                 variant="outlined"
@@ -51,11 +61,13 @@ const LinkCard = ({
         {/* Right side */}
         <Box>
           <Box>
-            <Box display="flex">
+            <Box display="flex" justifyContent="center">
               <Typography>{totalClicks}</Typography>
               <BarChart />
             </Box>
-            <Typography>Total Clicks</Typography>
+            <Hidden only="xs">
+              <Typography variant="overline">Total Clicks</Typography>
+            </Hidden>
           </Box>
         </Box>
       </Box>

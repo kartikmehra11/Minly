@@ -7,7 +7,7 @@ const Navbar = () => {
   };
   const userName = auth.currentUser.email.split("@")[0];
   return (
-    <AppBar color="primary" position="fixed" display="flex">
+    <AppBar color="primary" position="static" display="flex">
       <Toolbar>
         <Typography variant="h4"> Minly </Typography>
 
