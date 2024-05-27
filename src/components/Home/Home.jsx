@@ -38,7 +38,7 @@ const Home = () => {
         <Box flexGrow={1} display="flex" alignItems="center">
           <Grid container mx={2}>
             <Grid item sm={6}>
-              <Box m={2}>
+              <Box m={2} pt={2}>
                 <Typography variant="h3">Welcome to Minly</Typography>
                 <Typography ml={1} variant="h6">
                   {" "}

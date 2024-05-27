@@ -18,15 +18,38 @@ const SmolModal = ({ handleclose, handleShortURL }) => {
     name: "",
     longURL: "",
   });
+
+  const [errors, seterrors] = useState("");
+
   const handleChange = (e) => {
+    seterrors("");
     setForm((oldform) => ({
       ...oldform,
       [e.target.name]: e.target.value,
     }));
   };
   const handleGenerate = () => {
+    let isError = true;
     setLoading(true);
-    handleShortURL(form.name, form.longURL);
+    const expression =
+      /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
+    const regex = new RegExp(expression);
+
+    if (form.name.trim().length < 3 || form.name.trim().length > 20) {
+      seterrors("The name should be minimum 3 char and max 20 chars long");
+      isError = false;
+      setLoading(false);
+    }
+    if (!regex.test(form.longURL)) {
+      seterrors("URL is not valid");
+      isError = false;
+      setLoading(false);
+    }
+    if (isError) {
+      setTimeout(() => {
+        handleShortURL(form.name, form.longURL);
+      }, 1000);
+    }
   };
 
   return (
@@ -63,6 +86,9 @@ const SmolModal = ({ handleclose, handleShortURL }) => {
         >
           Long URL
         </TextField>
+        <Box>
+          <Typography color="red">{errors}</Typography>
+        </Box>
       </DialogContent>
       <DialogActions>
         <Box mr={2}>

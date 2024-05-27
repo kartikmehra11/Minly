@@ -58,7 +58,10 @@ const AuthModal = ({ closeAuth }) => {
     <Dialog open fullWidth onClose={closeAuth}>
       <DialogTitle>
         <Box display="flex" justifyContent="space-between">
-          <Typography variant="h5"> {isSign ? "Log In" : "Sign Up"}</Typography>
+          <Typography variant="h5">
+            {" "}
+            {isSign ? "Sign In" : "Sign Up"}
+          </Typography>
           <IconButton size="small" onClick={closeAuth}>
             <CloseIcon />
           </IconButton>
@@ -89,23 +92,35 @@ const AuthModal = ({ closeAuth }) => {
         </Box>
       </DialogContent>
 
-      <DialogActions sx={{ mx: 2 }}>
+      <DialogActions>
         <Box
           width="100%"
           display="flex"
           justifyContent="space-between"
           alignItems="center"
+          mb={1}
+          mx={2}
         >
-          <Typography onClick={() => setisSign(!isSign)}>
+          <Typography
+            onClick={() => {
+              seterrors();
+              setisSign(!isSign);
+            }}
+          >
             {isSign
               ? "Don't have a account? Click here"
               : "Already have an account. Click here"}
           </Typography>
-          <Button variant="contained" disableElevation onClick={handleAuth}>
+          <Button
+            variant="contained"
+            disableElevation
+            onClick={handleAuth}
+            sx={{ textWrap: "nowrap" }}
+          >
             {loading ? (
               <CircularProgress sx={{ color: "white" }} size={20} />
             ) : isSign ? (
-              "Log In"
+              "Sign In"
             ) : (
               "Sign Up"
             )}

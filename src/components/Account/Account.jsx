@@ -26,6 +26,7 @@ import {
   serverTimestamp,
   doc,
   deleteDoc,
+  setDoc,
 } from "firebase/firestore";
 import { nanoid } from "nanoid";
 import { auth, db } from "../../Firebase";
@@ -66,7 +67,21 @@ const Account = () => {
   const userUid = auth.currentUser.uid;
   const linksPathRef = useMemo(() => `users/${userUid}/links`, [userUid]);
 
-  //TO generate new links
+  //to generate links doc
+  async function linkCreated(userUid, linkID, longURL, shortURL) {
+    try {
+      await setDoc(doc(db, `links/${shortURL}`), {
+        userUid,
+        linkID,
+        longURL,
+      });
+    } catch (error) {
+      console.error("Error writing document: ", error);
+      throw new Error("Error writing document");
+    }
+  }
+
+  //TO generate new user doc
   const handleShortURL = async (name, longURL) => {
     const link = {
       name,
@@ -80,6 +95,7 @@ const Account = () => {
     };
     try {
       const resp = await addDoc(collection(db, linksPathRef), link);
+      linkCreated(userUid, resp.id, link.longURL, link.shortURL);
       setLinks((links) => [
         ...links,
         { ...link, createdAt: new Date(), id: resp.id },
@@ -91,21 +107,19 @@ const Account = () => {
   };
 
   //To delete links
-  const handleDelete = useCallback(
-    async (linkDocID) => {
-      if (window.confirm("Do you really want to delete the link ??")) {
-        try {
-          await deleteDoc(doc(db, linksPathRef, linkDocID));
-          setLinks((oldlinks) =>
-            oldlinks.filter((link) => link.id !== linkDocID)
-          );
-        } catch (e) {
-          console.error("Error deleting document: ", e);
-        }
+  const handleDelete = useCallback(async (linkDocID, shortURL) => {
+    if (window.confirm("Do you really want to delete the link ??")) {
+      try {
+        await deleteDoc(doc(db, linksPathRef, linkDocID)); //to delete user link data
+        await deleteDoc(doc(db, `links/${shortURL}`)); //to delete links
+        setLinks((oldlinks) =>
+          oldlinks.filter((link) => link.id !== linkDocID)
+        );
+      } catch (e) {
+        console.error("Error deleting document: ", e);
       }
-    },
-    [linksPathRef]
-  );
+    }
+  }, []);
 
   //To fetch previous links
   useEffect(() => {
@@ -166,9 +180,9 @@ const Account = () => {
         />
       )}
       <Navbar />
-      <Box mt={10}>
+      <Box mt={5} mx={2}>
         <Grid container justifyContent={"center"}>
-          <Grid item xs={8}>
+          <Grid item xs={12} sm={8}>
             <Box display="flex" mb={5}>
               <Typography mr={3} variant="h4">
                 Links
