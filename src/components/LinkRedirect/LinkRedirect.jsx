@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import { db } from "../../Firebase";
 import { doc, getDoc, increment, updateDoc } from "firebase/firestore";
 import NotFound from "./NotFound";
+import { Box, CircularProgress, Typography } from "@mui/material";
 
 const LinkRedirect = () => {
   const { shortLink } = useParams();
   const [error, seterror] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLinksDoc = async () => {
@@ -35,8 +37,17 @@ const LinkRedirect = () => {
     };
 
     fetchLinksDoc();
-  }, [shortLink]);
+  }, []);
 
+  if (loading)
+    return (
+      <Box display="flex" alignItems="center" flexDirection="column" mt={5}>
+        <CircularProgress sx={{ my: "15px" }} size={50}></CircularProgress>
+        <Typography display="flex" variant="h5">
+          Redirecting to link
+        </Typography>
+      </Box>
+    );
   if (error)
     return (
       <>
