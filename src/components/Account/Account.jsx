@@ -219,6 +219,7 @@ const Account = () => {
           </Grid>
         </Grid>
       </Box>
+      {!Loading && <Footer />}
     </>
   );
 };

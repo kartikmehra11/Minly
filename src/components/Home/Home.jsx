@@ -1,6 +1,7 @@
 import { Typography, Button, Box, Grid, Hidden } from "@mui/material";
 import AuthModal from "./AuthModal";
 import { useState } from "react";
+import Footer from "./Footer";
 
 const Home = () => {
   const [isAuth, setisAuth] = useState(false);
@@ -66,6 +67,7 @@ const Home = () => {
           </Grid>
         </Box>
       </Box>
+      <Footer />
     </>
   );
 };

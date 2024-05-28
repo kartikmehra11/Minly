@@ -46,7 +46,6 @@ const App = () => {
           <Route path="/:shortLink" element={<LinkRedirect />} />
         </Routes>
       </Router>
-      <Footer />
     </ThemeProvider>
   );
 };
