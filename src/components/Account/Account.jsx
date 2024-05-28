@@ -31,35 +31,6 @@ import {
 import { nanoid } from "nanoid";
 import { auth, db } from "../../Firebase";
 
-// const dummyData = [
-//   {
-//     id: "214151ruyga",
-//     createdAt: new Date(),
-//     name: "Website Name",
-//     longURL: "www.google.com",
-//     shortURL: "masdo",
-//     totalClicks: 15,
-//   },
-
-//   {
-//     id: "21415121ruyga",
-//     createdAt: new Date(),
-//     name: " Name",
-//     longURL:
-//       "www.https://www.youtube.com/watch?v=ZyHyMgIsTrM&list=PLmA3URVkjqnm7n31fUF7VDhWXjeEaZK2l&index=11.com",
-//     shortURL: "masdfao",
-//     totalClicks: 153,
-//   },
-//   {
-//     id: "214151212r41ruyga",
-//     createdAt: new Date(),
-//     name: " Name",
-//     longURL: "www.googl21es.com",
-//     shortURL: "masdfaw141o",
-//     totalClicks: 153,
-//   },
-// ];
-
 const Account = () => {
   const [links, setLinks] = useState([]);
   const [isOpen, setOpen] = useState(false);

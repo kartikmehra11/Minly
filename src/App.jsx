@@ -12,6 +12,7 @@ import theme from "./theme";
 import { useEffect, useState } from "react";
 import { auth } from "./Firebase";
 import LinkRedirect from "./components/LinkRedirect/LinkRedirect";
+import NotFound from "./components/LinkRedirect/NotFound";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -40,7 +41,7 @@ const App = () => {
             path="/account"
             element={user ? <Account /> : <Navigate to="/" />}
           />
-
+          <Route path="*" element={<NotFound />} />
           <Route path="/:shortLink" element={<LinkRedirect />} />
         </Routes>
       </Router>
