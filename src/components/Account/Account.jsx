@@ -152,7 +152,7 @@ const Account = () => {
         />
       )}
       <Navbar />
-      <Box mt={5} mx={2}>
+      <Box mt={5} mx={2} sx={{ minHeight: "110vh" }} position="relative">
         <Grid container justifyContent={"center"}>
           <Grid item xs={12} sm={8}>
             <Box display="flex" mb={5}>

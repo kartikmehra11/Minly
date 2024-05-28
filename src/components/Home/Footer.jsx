@@ -1,5 +1,4 @@
 // Footer.jsx
-import React from "react";
 import {
   Box,
   Container,
@@ -16,9 +15,10 @@ const Footer = () => {
       sx={{
         backgroundColor: "primary.main",
         color: "white",
-        mt: 2,
-        minHeight: "100%",
+        position: "static",
         width: "100%",
+        bottom: 0,
+        pt: 2,
       }}
     >
       <Container maxWidth="lg" sx={{}}>

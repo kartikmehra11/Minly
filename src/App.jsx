@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
 import { auth } from "./Firebase";
 import LinkRedirect from "./components/LinkRedirect/LinkRedirect";
 import NotFound from "./components/LinkRedirect/NotFound";
-import Footer from "./components/Home/Footer";
 
 const App = () => {
   const [user, setUser] = useState(null);
