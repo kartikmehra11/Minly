@@ -30,6 +30,7 @@ import {
 } from "firebase/firestore";
 import { nanoid } from "nanoid";
 import { auth, db } from "../../Firebase";
+import Footer from "../Home/Footer";
 
 const Account = () => {
   const [links, setLinks] = useState([]);

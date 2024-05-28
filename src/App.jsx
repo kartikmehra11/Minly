@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { auth } from "./Firebase";
 import LinkRedirect from "./components/LinkRedirect/LinkRedirect";
 import NotFound from "./components/LinkRedirect/NotFound";
+import Footer from "./components/Home/Footer";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -37,15 +38,15 @@ const App = () => {
       <Router>
         <Routes>
           <Route index path="/" element={user ? <Account /> : <Home />} />
-          <Route index path="/Minly" element={user ? <Account /> : <Home />} />
           <Route
-            path="Minly/account"
+            path="/account"
             element={user ? <Account /> : <Navigate to="/" />}
           />
           <Route path="*" element={<NotFound />} />
-          <Route path="Minly/:shortLink" element={<LinkRedirect />} />
+          <Route path="/:shortLink" element={<LinkRedirect />} />
         </Routes>
       </Router>
+      <Footer />
     </ThemeProvider>
   );
 };

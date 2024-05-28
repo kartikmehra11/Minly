@@ -29,10 +29,12 @@ const LinkRedirect = () => {
           window.location.href = longURL;
         } else {
           console.log("No such document!");
+          setLoading(false);
           seterror(true);
         }
       } catch (error) {
         console.error("Error fetching document: ", error);
+        seterror(true);
       }
     };
 
@@ -48,11 +50,12 @@ const LinkRedirect = () => {
         </Typography>
       </Box>
     );
-  if (error)
+  if (error) {
     return (
       <>
         <NotFound />
       </>
     );
+  }
 };
 export default LinkRedirect;
