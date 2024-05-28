@@ -16,7 +16,7 @@ const NotFound = () => {
       <Typography variant="h5" component="div" gutterBottom>
         Oops! The page you are looking for does not exist.
       </Typography>
-      <Button component={Link} to="/" variant="contained">
+      <Button component={Link} to="/Minly" variant="contained">
         Go Back Home
       </Button>
     </Box>

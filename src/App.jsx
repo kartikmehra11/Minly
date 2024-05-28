@@ -37,12 +37,13 @@ const App = () => {
       <Router>
         <Routes>
           <Route index path="/" element={user ? <Account /> : <Home />} />
+          <Route index path="/Minly" element={user ? <Account /> : <Home />} />
           <Route
-            path="/account"
+            path="Minly/account"
             element={user ? <Account /> : <Navigate to="/" />}
           />
           <Route path="*" element={<NotFound />} />
-          <Route path="/:shortLink" element={<LinkRedirect />} />
+          <Route path="Minly/:shortLink" element={<LinkRedirect />} />
         </Routes>
       </Router>
     </ThemeProvider>
