@@ -35,7 +35,7 @@ const LinkRedirect = () => {
     };
 
     fetchLinksDoc();
-  }, []);
+  }, [shortLink]);
 
   if (error)
     return (
