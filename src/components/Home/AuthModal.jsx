@@ -43,14 +43,14 @@ const AuthModal = ({ closeAuth }) => {
         await signInWithEmailAndPassword(auth, form.email, form.password);
       } catch (error) {
         setloading(false);
-        seterrors(error.message.split("Error")[1]);
+        seterrors(error.message);
       }
     } else
       try {
         await createUserWithEmailAndPassword(auth, form.email, form.password);
       } catch (error) {
         setloading(false);
-        seterrors(error.message.split("Error")[1]);
+        seterrors(error.message);
       }
   };
 
