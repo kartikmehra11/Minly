@@ -42,6 +42,7 @@ const AuthModal = ({ closeAuth }) => {
       try {
         await signInWithEmailAndPassword(auth, form.email, form.password);
       } catch (error) {
+        console.log(error);
         setloading(false);
         seterrors(error.message);
       }
@@ -49,6 +50,7 @@ const AuthModal = ({ closeAuth }) => {
       try {
         await createUserWithEmailAndPassword(auth, form.email, form.password);
       } catch (error) {
+        console.log(error);
         setloading(false);
         seterrors(error.message);
       }
