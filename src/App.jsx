@@ -6,8 +6,7 @@ import {
 } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Account from "./components/Account/Account";
-import { ThemeProvider, CircularProgress, Box } from "@mui/material";
-import theme from "./theme";
+import { CircularProgress, Box } from "@mui/material";
 
 import { useEffect, useState } from "react";
 import { auth } from "./Firebase";
@@ -33,19 +32,17 @@ const App = () => {
     );
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Routes>
-          <Route index path="/" element={user ? <Account /> : <Home />} />
-          <Route
-            path="/account"
-            element={user ? <Account /> : <Navigate to="/" />}
-          />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/:shortLink" element={<LinkRedirect />} />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <Router>
+      <Routes>
+        <Route index path="/" element={user ? <Account /> : <Home />} />
+        <Route
+          path="/account"
+          element={user ? <Account /> : <Navigate to="/" />}
+        />
+        <Route path="*" element={<NotFound />} />
+        <Route path="/:shortLink" element={<LinkRedirect />} />
+      </Routes>
+    </Router>
   );
 };
 export default App;
