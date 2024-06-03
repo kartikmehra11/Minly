@@ -67,7 +67,7 @@ const Account = () => {
     };
     try {
       const resp = await addDoc(collection(db, linksPathRef), link);
-      linkCreated(userUid, resp.id, link.longURL, link.shortURL);
+      linkCreated(userUid, resp.id, link.longURL, link.shortURL); //calling links doc function
       setLinks((links) => [
         ...links,
         { ...link, createdAt: new Date(), id: resp.id },
