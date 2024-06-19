@@ -21,7 +21,7 @@ const LinkRedirect = () => {
 
           // Update the totalClicks field in the user's links subcollection
           const userLinkRef = doc(db, `users/${userUid}/links/${linkID}`);
-          updateDoc(userLinkRef, {
+          await updateDoc(userLinkRef, {
             totalClicks: increment(1),
           });
 
