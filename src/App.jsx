@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { auth } from "./Firebase";
 import LinkRedirect from "./components/LinkRedirect/LinkRedirect";
 import NotFound from "./components/LinkRedirect/NotFound";
+import ForgotPassword from "./components/Home/ForgotPassword";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -41,6 +42,7 @@ const App = () => {
         />
         <Route path="*" element={<NotFound />} />
         <Route path="/:shortLink" element={<LinkRedirect />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
       </Routes>
     </Router>
   );

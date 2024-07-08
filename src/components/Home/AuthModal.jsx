@@ -11,19 +11,23 @@ import {
   Typography,
 } from "@mui/material";
 import {
+  browserSessionPersistence,
   createUserWithEmailAndPassword,
+  setPersistence,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../../Firebase";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import { Link, useNavigate } from "react-router-dom";
 
 const AuthModal = ({ closeAuth }) => {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
+  const navigate = useNavigate();
+  const sessionAuth = browserSessionPersistence;
   const [isSign, setisSign] = useState(true);
   const [errors, seterrors] = useState("");
   const [loading, setloading] = useState(false);
@@ -38,22 +42,18 @@ const AuthModal = ({ closeAuth }) => {
 
   const handleAuth = async () => {
     setloading(true);
-    if (isSign) {
-      try {
+    try {
+      await setPersistence(auth, sessionAuth);
+      if (isSign) {
         await signInWithEmailAndPassword(auth, form.email, form.password);
-      } catch (error) {
-        console.log(error);
-        setloading(false);
-        seterrors(error.message);
-      }
-    } else
-      try {
+      } else {
         await createUserWithEmailAndPassword(auth, form.email, form.password);
-      } catch (error) {
-        console.log(error);
-        setloading(false);
-        seterrors(error.message);
       }
+    } catch (error) {
+      console.log(error);
+      setloading(false);
+      seterrors(error.message);
+    }
   };
 
   return (
@@ -113,20 +113,32 @@ const AuthModal = ({ closeAuth }) => {
               ? "Don't have a account? Click here"
               : "Already have an account. Click here"}
           </Typography>
-          <Button
-            variant="contained"
-            disableElevation
-            onClick={handleAuth}
-            sx={{ textWrap: "nowrap" }}
-          >
-            {loading ? (
-              <CircularProgress sx={{ color: "white" }} size={20} />
-            ) : isSign ? (
-              "Sign In"
-            ) : (
-              "Sign Up"
-            )}
-          </Button>
+          <Box>
+            <Button
+              variant="contained"
+              disableElevation
+              onClick={() => {
+                navigate("/forgotpassword");
+              }}
+              sx={{ textWrap: "nowrap", marginRight: 1 }}
+            >
+              Forgot Password
+            </Button>
+            <Button
+              variant="contained"
+              disableElevation
+              onClick={handleAuth}
+              sx={{ textWrap: "nowrap" }}
+            >
+              {loading ? (
+                <CircularProgress sx={{ color: "white" }} size={20} />
+              ) : isSign ? (
+                "Sign In"
+              ) : (
+                "Sign Up"
+              )}
+            </Button>
+          </Box>
         </Box>
       </DialogActions>
     </Dialog>
